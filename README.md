@@ -16,6 +16,7 @@ La aplicación que desarrollarás permitirá registrar nuevos tickets, modificar
 ## Inicio Rápido
 
 ```shell
-$ gcc tdas/*.c main.c -Wno-unused-result -o main
+$ gcc tdas/*.c main.c -Wno-unused-result -Wall -Wextra -o main
 $ ./main
 ```
+
