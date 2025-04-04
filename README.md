@@ -62,12 +62,14 @@ $ ./main
 
 ### Funcionando correctamente:
 
-- Registrar pacientes con sus datos básicos y una prioridad inicial.
-- Asignar o modificar la prioridad de los pacientes.
-- Ver la lista de espera de pacientes, ordenada por prioridad y hora de registro.
-- Atender al siguiente paciente, respetando el orden de prioridad.
+- Registrar tickets con sus datos básicos y una prioridad inicial.
+- Asignar o modificar la prioridad de los tickets.
+- Ver la lista de espera de tickets, ordenada por prioridad y hora de registro.
+- Atender el siguiente ticket, respetando el orden de prioridad.
 
 #### Contribuciones
+
+- Cargar CSV
 
 ### Problemas conocidos:
 
