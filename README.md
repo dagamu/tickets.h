@@ -69,13 +69,10 @@ $ ./main
 
 #### Contribuciones
 
-- Cargar CSV
+- Cargar y Guardar CSV
 
 ### Problemas conocidos:
 
-- La funcionalidad para exportar e importar la lista de espera desde/hacia un archivo CSV aún está en desarrollo.
-
 ### A mejorar:
 
-- Implementar una interfaz de usuario más amigable.
-- Permitir la edición de los datos de los pacientes.
+- Permitir la edición de los datos de los tickets.
