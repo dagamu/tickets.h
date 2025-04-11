@@ -142,7 +142,7 @@ Ingrese su opcion:
 TICKETS EN ESPERA
 =================
  ID | PRIORIDAD |        TIEMPO       | DESCRIPCION
- 11 | Alta      |        Hoy  9:14: 0 | Prueba
+ 11 | Alta      |        Hoy  9:14: 0 | Prueba de Sistema
   4 | Alta      |  3/ 4/2025 10: 5: 0 | Se cayo la conexion WiFi
   1 | Alta      |  3/ 4/2025  8:23:10 | No puedo acceder al correo
   3 | Alta      |  3/ 4/2025  7:58:33 | La PC no enciende
@@ -155,6 +155,16 @@ TICKETS EN ESPERA
  10 | Baja      |  2/ 4/2025 10:18:27 | Requiere acceso a carpeta compartida
 
 ```
+
+---
+
+## Especificaciones
+
+- NO se puede registrar un ticket con ID repetido, se hará la validación.
+- NO se puede asignar una prioridad diferente de 0, 1 o 2.
+- Al modificar la prioridad de un ticket se matiene su hora y fecha inicial
+- El campo descripción tiene como máximo 99 caracteres.
+- Al atender un ticket se considera automáticamente el ítem más antiguo con más prioridad
 
 ---
 
@@ -173,6 +183,11 @@ TICKETS EN ESPERA
     - Se añade una opción para guardar la lista de tickets actual en formato CSV con columnas ID, Descripción, Prioridad y Fecha.
     - Se añade una opción para cargar en memoria una lista de tickets en formato CSV.
 
+### Problemas Conocidos
+
+- No se hacen verificaciones (además de las excepciones de fopen) de ingresar una ruta de archivo correcta al cargar o guardar CSVs. Al guardar, el fichero se sobreescribe automáticamente. 
+
 ### A mejorar:
 
 - Permitir la edición de los datos de los tickets.
+- Gráfico de Barra de prioridades
