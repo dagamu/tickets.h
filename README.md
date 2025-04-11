@@ -58,6 +58,106 @@ $ ./main
 
 ---
 
+## Ejemplo de Uso
+
+```shell
+$ ./main
+========================================
+     SISTEMA DE GESTION DE TICKETS      
+========================================
+1) Registrar ticket
+2) Asignar prioridad a ticket
+3) Mostrar lista de espera
+4) Atender al siguiente ticket
+5) Buscar ticket
+6) Cargar tickets desde CSV
+7) Guardar tickets en CSV
+8) Salir
+Ingrese su opcion:
+
+--> 6
+
+CARGAR TICKETS DESDE CSV
+======================
+Ingrese el nombre del archivo CSV (0: data/ejemplo1.csv):
+
+--> 0
+
+Tickets cargados correctamente. 
+
+========================================
+     SISTEMA DE GESTION DE TICKETS      
+========================================
+1) Registrar ticket
+2) Asignar prioridad a ticket
+3) Mostrar lista de espera
+4) Atender al siguiente ticket
+5) Buscar ticket
+6) Cargar tickets desde CSV
+7) Guardar tickets en CSV
+8) Salir
+Ingrese su opcion:
+
+--> 1
+
+REGISTRAR NUEVO TICKET
+Ingrese el ID del ticket: --> 11
+Ingrese la descripcion del ticket: --> Prueba de Sistema
+
+========================================
+     SISTEMA DE GESTION DE TICKETS      
+========================================
+1) Registrar ticket
+2) Asignar prioridad a ticket
+3) Mostrar lista de espera
+4) Atender al siguiente ticket
+5) Buscar ticket
+6) Cargar tickets desde CSV
+7) Guardar tickets en CSV
+8) Salir
+Ingrese su opcion:
+
+--> 2
+
+ASIGNAR PRIORIDAD A TICKET
+=========================
+Ingrese el ID del ticket: --> 11
+Ingrese la nueva prioridad (0: Bajo, 1: Medio, 2: Alto): --> 2
+
+========================================
+     SISTEMA DE GESTION DE TICKETS      
+========================================
+1) Registrar ticket
+2) Asignar prioridad a ticket
+3) Mostrar lista de espera
+4) Atender al siguiente ticket
+5) Buscar ticket
+6) Cargar tickets desde CSV
+7) Guardar tickets en CSV
+8) Salir
+Ingrese su opcion:
+
+--> 3
+
+TICKETS EN ESPERA
+=================
+ ID | PRIORIDAD |        TIEMPO       | DESCRIPCION
+ 11 | Alta      |        Hoy  9:14: 0 | Prueba
+  4 | Alta      |  3/ 4/2025 10: 5: 0 | Se cayo la conexion WiFi
+  1 | Alta      |  3/ 4/2025  8:23:10 | No puedo acceder al correo
+  3 | Alta      |  3/ 4/2025  7:58:33 | La PC no enciende
+  9 | Alta      |  1/ 4/2025 11: 1:39 | Teclado deja de funcionar aleatoriamente
+  8 | Media     |  3/ 4/2025 10:30:55 | Problema con Zoom en videollamada
+  5 | Media     |  3/ 4/2025  9:50:18 | No se carga el archivo adjunto
+  2 | Media     |  3/ 4/2025  9:12:45 | Error al imprimir en la oficina
+  7 | Media     |  3/ 4/2025  8:44: 7 | Actualizacion de software fallida
+  6 | Baja      |  3/ 4/2025 11:13:22 | Consulta sobre cambio de password
+ 10 | Baja      |  2/ 4/2025 10:18:27 | Requiere acceso a carpeta compartida
+
+```
+
+---
+
 ## Funcionalidades
 
 ### Funcionando correctamente:
@@ -69,9 +169,9 @@ $ ./main
 
 #### Contribuciones
 
-- Cargar y Guardar CSV
-
-### Problemas conocidos:
+- **Cargar y Guardar CSV**
+    - Se añade una opción para guardar la lista de tickets actual en formato CSV con columnas ID, Descripción, Prioridad y Fecha.
+    - Se añade una opción para cargar en memoria una lista de tickets en formato CSV.
 
 ### A mejorar:
 

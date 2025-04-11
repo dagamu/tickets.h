@@ -38,10 +38,10 @@ typedef struct Tiempo
 // Estructura para almacenar los datos de un ticket
 typedef struct Ticket
 {
-  int id;                 // Identificador único del ticket
-  char descripcion[100];  // Descripción del problema o solicitud
-  int prioridad;          // Nivel de prioridad (0: Baja, 1: Media, 2: Alta)
-  Tiempo tiempo;          // Fecha y hora de creación del ticket
+  int id;                // Identificador único del ticket
+  char descripcion[100]; // Descripción del problema o solicitud
+  int prioridad;         // Nivel de prioridad (0: Baja, 1: Media, 2: Alta)
+  Tiempo tiempo;         // Fecha y hora de creación del ticket
 } Ticket;
 
 // Obtiene la fecha y hora actual del sistema
@@ -69,7 +69,7 @@ void repoblar_cola(Queue *colaA, Queue *colaB)
 {
   // Repoblar colaB con los tickets de colaA
   Ticket *ticket;
-  while ((ticket = (Ticket *) queue_front(colaA)) != NULL)
+  while ((ticket = (Ticket *)queue_front(colaA)) != NULL)
   {
     queue_insert(colaB, ticket);
     queue_remove(colaA);
@@ -77,7 +77,7 @@ void repoblar_cola(Queue *colaA, Queue *colaB)
 }
 
 // Busca un ticket por su ID en las colas de prioridad
-Ticket * buscar_ticket(Queue *tickets_queues[3], int id)
+Ticket *buscar_ticket(Queue *tickets_queues[3], int id)
 {
   Ticket *ticket;
   Queue *queue_aux = queue_create();
@@ -88,7 +88,7 @@ Ticket * buscar_ticket(Queue *tickets_queues[3], int id)
   for (int i = 0; i < 3; i++)
   {
     // Se recorren los tickets de la cola de prioridad
-    while ((ticket = (Ticket *) queue_front(tickets_queues[i])) != NULL)
+    while ((ticket = (Ticket *)queue_front(tickets_queues[i])) != NULL)
     {
       // Si el ticket tiene el id buscado, se muestra
       if (ticket->id == id)
@@ -117,12 +117,12 @@ void mostrar_ticket(Ticket *ticket, int show_header)
   // Mostrar ticket con su id, descripcion y prioridad
   // Diccionario de prioridades (N° -> Texto de Prioridad)
   char *msg_prioridades[3] = {"Baja", "Media", "Alta"};
-  if (show_header)   // Si es el encabezado, se muestra
+  if (show_header) // Si es el encabezado, se muestra
     printf(" ID | PRIORIDAD |        TIEMPO       | DESCRIPCION  \n");
-  
+
   // Muestra el id, prioridad en formato de tabla
   printf("%3d | %-9s | ",
-        ticket->id, msg_prioridades[ticket->prioridad]);
+         ticket->id, msg_prioridades[ticket->prioridad]);
 
   // Muestra la fecha y hora actual en formato de tabla
   Tiempo now = obtener_tiempo();
@@ -144,7 +144,7 @@ void registrar_ticket(Queue *queues[3])
   Queue *cola = queues[PRIORIDAD_DEFAULT];
 
   // Reserva memoria para un nuevo ticket
-  Ticket *ticket = (Ticket *) malloc(sizeof(Ticket));
+  Ticket *ticket = (Ticket *)malloc(sizeof(Ticket));
   if (ticket == NULL)
   {
     puts("Error al registrar ticket");
@@ -174,7 +174,6 @@ void registrar_ticket(Queue *queues[3])
   queue_insert(cola, ticket);
 }
 
-
 // Muestra todos los tickets en espera, ordenados por prioridad y antigüedad
 void mostrar_lista_ticket(Queue *tickets_queues[])
 {
@@ -192,7 +191,7 @@ void mostrar_lista_ticket(Queue *tickets_queues[])
 
     // Muestra el encabezado solo si es la cola de prioridad más alta (la primera)
     int show_header = 1;
-    while ((ticket = (Ticket *) queue_front(tickets_queues[i])) != NULL)
+    while ((ticket = (Ticket *)queue_front(tickets_queues[i])) != NULL)
     {
       mostrar_ticket(ticket, show_header && i == 2);
       queue_insert(queue_aux, ticket);
@@ -237,21 +236,23 @@ void insertar_ticket(Queue *cola, Ticket *ticket)
   Ticket *ticket_aux;
   Queue *queue_aux = queue_create();
 
-  if( queue_front(cola) == NULL )
-  { 
+  // Si cola está vacía, insertar
+  if (queue_front(cola) == NULL)
+  {
     queue_insert(cola, ticket);
     return;
   }
 
   int flag = 0;
-  while ((ticket_aux = (Ticket *) queue_front(cola)) != NULL)
+  // Recorrer cola hasta encontrar posición correcta
+  while ((ticket_aux = (Ticket *)queue_front(cola)) != NULL)
   {
     if (comparar_tickets(ticket, ticket_aux) && flag == 0)
     {
       queue_insert(queue_aux, ticket);
       flag = 1;
     }
-    
+
     queue_insert(queue_aux, ticket_aux);
     queue_remove(cola);
   }
@@ -334,12 +335,12 @@ void menu_buscar_ticket(Queue *tickets_queues[])
   printf("Ingrese el ID del ticket: ");
   scanf("%d", &id);
 
+  // Buscar ticket por ID en colas 
   Ticket *ticket = buscar_ticket(tickets_queues, id);
   if (ticket != NULL)
     mostrar_ticket(ticket, 1);
   else
     puts("Ticket no encontrado.");
-
 }
 
 // Atiende al siguiente ticket según la prioridad (Alta > Media > Baja) y antigüedad
@@ -352,6 +353,7 @@ void atender_ticket(Queue *tickets_queues[])
   Ticket *ticket;
   int flag = 0;
 
+  // Iterar colas por prioridad hasta encontrar ticket
   for (int i = 2; i >= 0; i--)
   {
     ticket = (Ticket *)queue_front(tickets_queues[i]);
@@ -378,7 +380,7 @@ void cargar_csv(Queue *tickets_queues[])
 
   for (int i = 0; i < 3; i++)
     queue_clean(tickets_queues[i]);
-  
+
   char nombre_archivo[50];
   printf("Ingrese el nombre del archivo CSV (0: data/ejemplo1.csv): ");
   scanf(" %s", nombre_archivo);
@@ -401,17 +403,20 @@ void cargar_csv(Queue *tickets_queues[])
     if (token == NULL)
       continue;
 
+    // Si es header pasar
     if (strcmp(token, "ID") == 0)
       continue;
 
+    // Asignar Memoria
     Ticket *ticket = (Ticket *)malloc(sizeof(Ticket));
     if (ticket == NULL)
     {
-      puts("Error al crear ticket."); 
+      puts("Error al crear ticket.");
       fclose(archivo);
       return;
     }
 
+    // Leer ID
     ticket->id = atoi(token);
     token = strtok(NULL, ",");
     if (token == NULL)
@@ -419,17 +424,19 @@ void cargar_csv(Queue *tickets_queues[])
       puts("Error al leer la descripcion del ticket.");
       free(ticket);
       continue;
-    } 
+    }
 
+    // Leer descripción
     strcpy(ticket->descripcion, token);
     token = strtok(NULL, ",");
     if (token == NULL)
     {
-      puts("Error al leer la prioridad del ticket.");     
+      puts("Error al leer la prioridad del ticket.");
       free(ticket);
       continue;
     }
 
+    // Leer prioridad
     ticket->prioridad = atoi(token);
     token = strtok(NULL, ",");
     if (token == NULL)
@@ -437,8 +444,9 @@ void cargar_csv(Queue *tickets_queues[])
       puts("Error al leer la fecha del ticket.");
       free(ticket);
       continue;
-    }   
+    }
 
+    // Leer Tiempo y Fecha
     sscanf(token, "%d/%d/%d %d:%d:%d", &ticket->tiempo.dia, &ticket->tiempo.mes, &ticket->tiempo.anyo, &ticket->tiempo.hora, &ticket->tiempo.minuto, &ticket->tiempo.segundo);
 
     insertar_ticket(tickets_queues[ticket->prioridad], ticket);
@@ -454,7 +462,7 @@ void guardar_csv(Queue *tickets_queues[])
   limpiarPantalla();
   puts("GUARDAR TICKETS EN CSV");
   puts("=====================");
-  
+
   // Solicita el nombre del archivo CSV
   char nombre_archivo[50];
   printf("Ingrese el nombre del archivo CSV (0: data/data.csv): ");
@@ -463,10 +471,11 @@ void guardar_csv(Queue *tickets_queues[])
   // Si el nombre es 0, se guarda en el archivo data/data.csv
   if (strcmp(nombre_archivo, "0") == 0)
     strcpy(nombre_archivo, "data/data.csv");
-    
+
   // Abre el archivo CSV en modo escritura
   FILE *archivo = fopen(nombre_archivo, "w");
-  if (archivo == NULL){
+  if (archivo == NULL)
+  {
     puts("Error al abrir el archivo CSV.");
     return;
   }
@@ -480,7 +489,7 @@ void guardar_csv(Queue *tickets_queues[])
     Ticket *ticket;
     Queue *queue_aux = queue_create();
     while ((ticket = (Ticket *)queue_front(tickets_queues[i])) != NULL)
-    { 
+    {
       fprintf(archivo, "%d,%s,%d,%d/%d/%d %d:%d:%d\n", ticket->id, ticket->descripcion, ticket->prioridad, ticket->tiempo.dia, ticket->tiempo.mes, ticket->tiempo.anyo, ticket->tiempo.hora, ticket->tiempo.minuto, ticket->tiempo.segundo);
       queue_insert(queue_aux, ticket);
       queue_remove(tickets_queues[i]);
